@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
 
-
 interface Message {
     username: string;
     message: string;
@@ -14,7 +13,6 @@ const ChatRoom: React.FC = () => {
     const [chat, setChat] = useState<Message[]>([]);
     const [typingUser, setTypingUser] = useState<string | null>(null);
     const [ws, setWs] = useState<WebSocket | null>(null);
-    const [showPicker, setShowPicker] = useState<boolean>(false);
     const messageRef = useRef<HTMLInputElement>(null);
 
     // WebSocket connection
@@ -66,11 +64,6 @@ const ChatRoom: React.FC = () => {
         }
     };
 
-    // Add emoji to the message
-    const addEmoji = (emoji: any) => {
-        setMessage((prevMessage) => prevMessage + emoji.native);
-        setShowPicker(false);
-    };
 
     return (
         <div className="chatroom-container">
@@ -117,8 +110,6 @@ const ChatRoom: React.FC = () => {
                         onKeyDown={handleKeyDown}
                     />
                     <button onClick={sendMessage}>Send</button>
-                    <button onClick={() => setShowPicker(!showPicker)}>😊</button>
-                    {showPicker && <Picker data={data} onEmojiSelect={addEmoji} />}
                 </div>
             </div>
         </div>
